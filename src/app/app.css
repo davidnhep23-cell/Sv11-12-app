@@ -1,0 +1,13 @@
+.menu-link {
+  color: #f8f9fa !important;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 6px;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* Hover effect */
+.menu-link:hover {
+  background-color: #74a3e2;
+  color: #212529 !important;
+}

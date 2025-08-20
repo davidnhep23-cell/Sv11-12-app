@@ -1,0 +1,88 @@
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="order-summary-card shadow-lg p-5 rounded">
+        <!-- Title -->
+        <h2 class="text-center mb-4 order-title">🛒 Order Summary</h2>
+
+        <!-- Product List -->
+        @for (item of cardService.getCarditem(); track item.id) {
+        <div *ngIf="item.is_select" class="order-item card mb-3 p-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <h5 class="mb-1">{{ item.title }}</h5>
+              <p class="mb-1"><strong>Price:</strong> {{ item.price | currency }}</p>
+              <p class="mb-1">
+                <strong>Quantity:</strong>
+                <input
+                  [value]="item.qty"
+                  class="qty-box"
+                  readonly
+                />
+              </p>
+            </div>
+            <div>
+              <strong>Total:</strong>
+              <span class="text-success">{{ item.price * item.qty | currency }}</span>
+            </div>
+          </div>
+        </div>
+        }
+
+        <!-- Grand Total -->
+        <div class="grand-total card p-3 mb-5">
+          <h5 class="mb-0">
+            <strong>Grand Total:</strong>
+            <span class="text-success">{{ getTotal() | currency }}</span>
+          </h5>
+        </div>
+
+        <!-- Payment Methods -->
+        <div class="payment-section">
+          <h4 class="mb-4">💳 Choose Payment Method</h4>
+
+          <div class="form-group mb-4">
+            <label for="payment-method" class="form-label fw-bold">Select Payment</label>
+            <select class="form-control payment-select" id="payment-method">
+              <option value="credit-card">Credit Card</option>
+              <option value="visa">VISA Card</option>
+              <option value="aba">ABA</option>
+              <option value="acleda">ACLEDA</option>
+            </select>
+          </div>
+
+          <!-- Credit Card -->
+          <div id="credit-card-details" class="payment-method-details mb-4">
+            <h5 class="text-muted mb-3">Enter Card Details</h5>
+            <div class="form-group mb-3">
+              <label for="card-number" class="form-label">Card Number</label>
+              <input type="text" id="card-number" class="form-control" placeholder="XXXX-XXXX-XXXX-XXXX" />
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="expiry-date" class="form-label">Expiry Date</label>
+                <input type="text" id="expiry-date" class="form-control" placeholder="MM/YY" />
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="cvv" class="form-label">CVV</label>
+                <input type="password" id="cvv" class="form-control" placeholder="XXX" />
+              </div>
+            </div>
+          </div>
+
+          <!-- PayPal -->
+          <div id="paypal-details" class="payment-method-details mb-4 text-center">
+            <button class="btn btn-warning w-100">Pay with PayPal</button>
+          </div>
+        </div>
+
+        <!-- Pay Now -->
+        <div class="text-center mt-4">
+          <button class="btn btn-success btn-lg px-5" id="pay-now-btn" (click)="paynow()">
+            ✅ Pay Now
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
